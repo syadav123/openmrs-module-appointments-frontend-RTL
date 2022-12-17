@@ -17,7 +17,14 @@ require("ng-dialog/css/ngDialog.min.css");
 require("ng-dialog/css/ngDialog-theme-default.min.css");
 require("ng-dialog/css/ngDialog-theme-plain.min.css");
 
-require("./styles/appointmentScheduling.scss");
+let languageUser = window.localStorage["NG_TRANSLATE_LANG_KEY"] || "en";
+
+if (languageUser == 'ar') {
+	require("./styles/appointmentScheduling-rtl.scss");
+} else {
+	require("./styles/appointmentScheduling.scss");
+}
+
 require("fullcalendar-scheduler/dist/scheduler.min.css");
 require("fullcalendar/dist/fullcalendar.min.css");
 require("angular-ivh-treeview/dist/ivh-treeview.css");
