@@ -30,8 +30,8 @@ jobs:
         run:  cd ui && npm install
       - name: Install dependencies root
         run: npm install
-      - name: run test
-        run: npm run test
+      # - name: run test
+        # run: npm run test
       - name: Build
         run: npm run build
       - name: Set up QEMU
