@@ -3,6 +3,7 @@ import {recurringAppointmentFetchUrl, recurringAppointmentsConflictsUrl, recurri
 
 export const saveRecurringAppointments = async data => {
     try {
+    	data.comments = encodeURIComponent(data.comments);
         return await axios.post(`${recurringAppointmentsSaveUrl}`, data);
     } catch (error) {
         console.error(error);
@@ -12,7 +13,8 @@ export const saveRecurringAppointments = async data => {
 
 export const updateRecurringAppointments = async data => {
     try {
-        return await axios.put(`${recurringAppointmentsSaveUrl}/${data.appointmentRequest.uuid}`, data);
+    	data.comments = encodeURIComponent(data.comments);
+    	return await axios.put(`${recurringAppointmentsSaveUrl}/${data.appointmentRequest.uuid}`, data);
     } catch (error) {
         console.error(error);
         return error.response;

@@ -3,6 +3,7 @@ import {appointmentByUuidUrl, appointmentConflictsUrl, appointmentSaveUrl} from 
 
 export const saveOrUpdateAppointment = async (data) => {
     try {
+    	data.comments = encodeURIComponent(data.comments);
         const response = await axios.post(`${appointmentSaveUrl}`, data);
         return response;
     } catch (error) {

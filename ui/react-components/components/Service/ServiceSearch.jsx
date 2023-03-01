@@ -22,7 +22,12 @@ const ServiceSearch = (props) => {
 
 
     const loadServices = async () => {
-        const services = await getAllServices();
+        const services = [];
+        const results = await getAllServices();
+        forEach(results, function (service) {
+            service.name = decodeURIComponent(service.name);
+            services.push(service);
+        });
         setServices(services);
         setDropdownOptions(createDropdownOptions(services))
     };
@@ -44,7 +49,7 @@ const ServiceSearch = (props) => {
                   options={Object.values(dropdownOptions)}
                   placeholder={placeHolder}
                   onChange={onChange}
-                  selectedValue={value}
+                  selectedValue={decodeURIComponent(value)}
                   isDisabled={isDisabled}
                   isClearable={false}
                   autoFocus={!specialityEnabled && autoFocus}

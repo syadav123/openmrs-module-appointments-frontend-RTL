@@ -23,7 +23,7 @@ const ServiceUnavailableConflicts = props => {
     return (
         <div>
             <div className={classNames(conflictsHeading)}>
-                <FormattedMessage id="NO_SERVICE_CONFLICTS_DEFAULT_TEXT" defaultMessage={defaultMessage} values={{label: props.service.label}}/>
+                <FormattedMessage id="NO_SERVICE_CONFLICTS_DEFAULT_TEXT" defaultMessage={defaultMessage} values={{label: decodeURIComponent(props.service.label)}}/>
             </div>
             <div className={classNames(conflictsList)}>
                 <ul>{getConflictsList()}</ul>

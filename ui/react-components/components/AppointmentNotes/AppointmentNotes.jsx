@@ -10,7 +10,8 @@ const AppointmentNotes = (props) => {
         id: 'PLACEHOLDER_APPOINTMENT_NOTES_MAX_LENGTH', defaultMessage: 'Maximum of 250 characters'
     });
     return (<Fragment>
-            <textarea value={value || ''} className={classNames(notes)} onChange={onChange}
+            <meta charSet="utf-8" />
+            <textarea value={decodeURIComponent(value || '')} className={classNames(notes)} onChange={onChange} 
                       data-testid="notes" maxLength="250"
                       placeholder={placeHolder}/>
         </Fragment>

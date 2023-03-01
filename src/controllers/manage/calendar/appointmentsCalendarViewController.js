@@ -257,5 +257,9 @@ angular.module('bahmni.appointments')
                 }
             });
 
+            $scope.decode = function (text) {
+                return decodeURIComponent(text || '');
+            };
+
             return init();
         }]);

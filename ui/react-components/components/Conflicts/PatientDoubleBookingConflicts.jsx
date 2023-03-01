@@ -17,8 +17,8 @@ const PatientDoubleBookingConflicts = props => {
     const doubleBookingConflictMessage = 'Current {currentAppointmentService} request conflicts with {existingAppointmentService} appointment on and';
 
     const getDoubleBookingAppointmentConflictMessage = conflict => {
-        const currentAppointmentService = props.service.label;
-        const existingAppointmentService = conflict.service.name;
+        const currentAppointmentService = decodeURIComponent(props.service.label);
+        const existingAppointmentService = decodeURIComponent(conflict.service.name);
       let formattedMessage = <FormattedMessage id="PATIENT_DOUBLE_BOOKING_CONFLICT_MESSAGE"
                                                defaultMessage={doubleBookingConflictMessage}
                                                values={{

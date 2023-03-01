@@ -473,5 +473,9 @@ angular.module('bahmni.appointments')
                     isSelectedAppointmentStatusAllowedToReset();
             };
 
+            $scope.decode = function (text) {
+                return decodeURIComponent(text || '');
+            };
+
             init();
         }]);
