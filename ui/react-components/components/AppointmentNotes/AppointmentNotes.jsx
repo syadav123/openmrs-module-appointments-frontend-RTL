@@ -11,7 +11,7 @@ const AppointmentNotes = (props) => {
     });
     return (<Fragment>
             <meta charSet="utf-8" />
-            <textarea value={decodeURIComponent(value || '')} className={classNames(notes)} onChange={onChange} 
+            <textarea value={value || ''} className={classNames(notes)} onChange={onChange} 
                       data-testid="notes" maxLength="250"
                       placeholder={placeHolder}/>
         </Fragment>

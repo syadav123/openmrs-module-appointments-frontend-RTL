@@ -24,6 +24,7 @@ export const conflictsFor = async appointmentRequest => {
 export const getAppointment = async (appointmentUuid) => {
     try {
         const response = await axios.get(`${appointmentByUuidUrl}?uuid=${appointmentUuid}`);
+        response.data.comments = decodeURIComponent(response.data.comments);
         return response;
     } catch (error) {
         console.error(error);

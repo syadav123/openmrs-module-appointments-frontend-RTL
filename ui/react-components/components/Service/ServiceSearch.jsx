@@ -14,7 +14,7 @@ const ServiceSearch = (props) => {
     const [services, setServices] = useState([]);
     const [dropdownOptions, setDropdownOptions] = useState([]);
 
-    useEffect(() => { setServices(loadServices()) },[]);
+    useEffect(() => { loadServices() },[]);
 
     useEffect(() => {
             setDropdownOptions(createDropdownOptions(services))

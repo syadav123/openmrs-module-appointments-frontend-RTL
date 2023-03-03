@@ -28,6 +28,10 @@ Bahmni.Appointments.AppointmentServiceViewModel = (function () {
         isSelected: false
     }];
 
+    var decode = function (text) {
+        return decodeURIComponent(text || '');
+    };
+
     Service.createFromResponse = function (serviceDetails) {
         var getDateTime = function (time) {
             return time ? new Date("January 01, 1970 " + time) : undefined;
@@ -56,9 +60,9 @@ Bahmni.Appointments.AppointmentServiceViewModel = (function () {
         };
 
         var service = new Service({
-            name: serviceDetails.name,
+            name: decode(serviceDetails.name),
             uuid: serviceDetails.uuid,
-            description: serviceDetails.description,
+            description: decode(serviceDetails.description),
             durationMins: serviceDetails.durationMins,
             maxAppointmentsLimit: serviceDetails.maxAppointmentsLimit,
             color: serviceDetails.color,

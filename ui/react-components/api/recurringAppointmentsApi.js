@@ -24,6 +24,7 @@ export const updateRecurringAppointments = async data => {
 export const getRecurringAppointment = async (appointmentUuid) => {
     try {
         const response = await axios.get(`${recurringAppointmentFetchUrl}?uuid=${appointmentUuid}`);
+        response.data.comments = decodeURIComponent(response.data.comments);
         return response;
     } catch (error) {
         console.error(error);
