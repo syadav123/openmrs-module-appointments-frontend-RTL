@@ -69,7 +69,7 @@ angular.module('bahmni.appointments')
                                 id: speciality[0].speciality.uuid || "",
                                 children: _.map(speciality, function (service) {
                                     return {
-                                        label: service.name, id: service.uuid, color: service.color,
+                                        label: decode(service.name), id: service.uuid, color: service.color,
                                         children: !$scope.isServiceTypeEnabled ? [] : _.map(service.serviceTypes, function (serviceType) {
                                             return {
                                                 label: serviceType.name + ' [' + serviceType.duration + ' ' + $translate.instant("PLACEHOLDER_SERVICE_TYPE_DURATION_MIN") + ']',
@@ -83,7 +83,7 @@ angular.module('bahmni.appointments')
                     } else {
                         $scope.selectedSpecialities = _.map(response[0].data, function (service) {
                             return {
-                                label: service.name, id: service.uuid, color: service.color,
+                                label: decode(service.name), id: service.uuid, color: service.color,
                                 children: !$scope.isServiceTypeEnabled ? [] : _.map(service.serviceTypes, function (serviceType) {
                                     return {
                                         label: serviceType.name + ' [' + serviceType.duration + ' ' + $translate.instant("PLACEHOLDER_SERVICE_TYPE_DURATION_MIN") + ']',
@@ -292,5 +292,10 @@ angular.module('bahmni.appointments')
                     }
                 }
             }, true);
+
+            var decode = function (text) {
+                return decodeURIComponent(text || '');
+            }
+
             init();
         }]);

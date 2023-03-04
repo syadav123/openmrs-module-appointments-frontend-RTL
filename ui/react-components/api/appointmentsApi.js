@@ -3,7 +3,9 @@ import {appointmentByUuidUrl, appointmentConflictsUrl, appointmentSaveUrl} from 
 
 export const saveOrUpdateAppointment = async (data) => {
     try {
-    	data.comments = encodeURIComponent(data.comments);
+        if (data && data.comments) {
+            data.comments = encodeURIComponent(data.comments);
+        }
         const response = await axios.post(`${appointmentSaveUrl}`, data);
         return response;
     } catch (error) {
@@ -24,7 +26,9 @@ export const conflictsFor = async appointmentRequest => {
 export const getAppointment = async (appointmentUuid) => {
     try {
         const response = await axios.get(`${appointmentByUuidUrl}?uuid=${appointmentUuid}`);
-        response.data.comments = decodeURIComponent(response.data.comments);
+        if (response.data && response.data.comments) {
+            response.data.comments = decodeURIComponent(response.data.comments);
+        }
         return response;
     } catch (error) {
         console.error(error);

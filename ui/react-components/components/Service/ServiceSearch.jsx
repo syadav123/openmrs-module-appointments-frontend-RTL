@@ -49,7 +49,7 @@ const ServiceSearch = (props) => {
                   options={Object.values(dropdownOptions)}
                   placeholder={placeHolder}
                   onChange={onChange}
-                  selectedValue={decodeURIComponent(value)}
+                  selectedValue={value}
                   isDisabled={isDisabled}
                   isClearable={false}
                   autoFocus={!specialityEnabled && autoFocus}

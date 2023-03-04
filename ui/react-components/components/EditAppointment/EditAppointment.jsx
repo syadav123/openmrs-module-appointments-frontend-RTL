@@ -389,6 +389,10 @@ const EditAppointment = props => {
 
     const isValidEndDate = () => appointmentDetails.recurringEndDate || (appointmentDetails.occurrences && appointmentDetails.occurrences > 0);
 
+    function decode(text) {
+        return decodeURIComponent(text || '');
+    }
+
     function storePreviousAppointmentDatetime(date, startTime, endTime) {
         setAppointmentTimeBeforeEdit({date: date, startTime: startTime, endTime: endTime});
     }
@@ -411,7 +415,7 @@ const EditAppointment = props => {
             const appointmentDetailsFromResponse = {
                 patient: getPatientForDropdown(appointmentResponse.patient),
                 providers: getProviderDropDownOptions(appointmentResponse.providers),
-                service: {label: appointmentResponse.service.name, value: appointmentResponse.service},
+                service: {label: decode(appointmentResponse.service.name), value: appointmentResponse.service},
                 serviceType: appointmentResponse.serviceType ? {label: appointmentResponse.serviceType.name, value: appointmentResponse.serviceType} : undefined,
                 location: appointmentResponse.location ? {label: appointmentResponse.location.name, value: appointmentResponse.location} : undefined,
                 speciality: appointmentResponse.service.speciality.uuid ? {label: appointmentResponse.service.speciality.name, value: appointmentResponse.service.speciality} : undefined,
