@@ -5,7 +5,7 @@ angular.module('bahmni.appointments')
         function ($http) {
             this.save = function (service) {
                 service.name = encodeURIComponent(service.name);
-                service.description = encodeURIComponent(service.description);
+                service.description = encodeURIComponent(service.description || '');
                 return $http.post(Bahmni.Appointments.Constants.createServiceUrl, service, {
                     withCredentials: true,
                     headers: {"Accept": "application/json", "Content-Type": "application/json"}

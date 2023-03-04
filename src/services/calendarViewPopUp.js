@@ -203,5 +203,10 @@ angular.module('bahmni.appointments')
                     }
                 });
             };
+
+            $rootScope.decode = function (text) {
+                return decodeURIComponent(text || '');
+            };
+
             return calendarViewPopUp;
         }]);
