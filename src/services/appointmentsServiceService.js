@@ -1,12 +1,36 @@
 'use strict';
 
 angular.module('bahmni.appointments')
-    .service('appointmentsServiceService', ['$http',
-        function ($http) {
+    .service('appointmentsServiceService', ['$http', 'LZString',
+        function ($http, LZString) {
+
+            // https://pieroxy.net/blog/pages/lz-string/index.html
+            // https://github.com/pieroxy/lz-string/
+            this.encodeCompress = function (inputStr) {
+                if (!inputStr) return "";
+                if (inputStr == "") return "";
+                var compressed = LZString.compressToEncodedURIComponent(inputStr);
+                return compressed;
+            };
+
+            this.decodeDecompress = function (inputStr) {
+                if (!inputStr) return "";
+                if (inputStr == "") return "";
+                try {
+                    var decompressed = LZString.decompressFromEncodedURIComponent(inputStr);
+                    if ((!decompressed || decompressed.length == 0) && inputStr.includes("%")) {
+                        return decodeURIComponent(inputStr);
+                    }
+                    return decompressed || inputStr;
+                } catch (error) {
+                    return decodeURIComponent(inputStr);
+                }
+            };
+
             this.save = function (service) {
-                service.name = encodeURIComponent(service.name);
+                service.name = this.encodeCompress(service.name);
                 if (service.description && service.description.length > 0) {
-                    service.description = encodeURIComponent(service.description);
+                    service.description = this.encodeCompress(service.description);
                 }
                 return $http.post(Bahmni.Appointments.Constants.createServiceUrl, service, {
                     withCredentials: true,

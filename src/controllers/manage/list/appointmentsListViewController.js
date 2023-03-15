@@ -2,9 +2,9 @@
 
 angular.module('bahmni.appointments')
     .controller('AppointmentsListViewController', ['$scope', '$state', '$rootScope', '$translate', '$stateParams', 'spinner',
-        'appointmentsService', 'appService', 'appointmentsFilter', 'printer', 'checkinPopUp', 'confirmBox', 'ngDialog', 'messagingService', 'appointmentCommonService', '$interval',
+        'appointmentsService', 'appService', 'appointmentsFilter', 'printer', 'checkinPopUp', 'confirmBox', 'ngDialog', 'messagingService', 'appointmentCommonService', '$interval', 'LZString',
         function ($scope, $state, $rootScope, $translate, $stateParams, spinner, appointmentsService, appService,
-                  appointmentsFilter, printer, checkinPopUp, confirmBox, ngDialog, messagingService, appointmentCommonService, $interval) {
+                  appointmentsFilter, printer, checkinPopUp, confirmBox, ngDialog, messagingService, appointmentCommonService, $interval, LZString) {
             $scope.enableSpecialities = appService.getAppDescriptor().getConfigValue('enableSpecialities');
             $scope.enableServiceTypes = appService.getAppDescriptor().getConfigValue('enableServiceTypes');
             $scope.allowedActions = appService.getAppDescriptor().getConfigValue('allowedActions') || [];
@@ -473,8 +473,18 @@ angular.module('bahmni.appointments')
                     isSelectedAppointmentStatusAllowedToReset();
             };
 
-            $scope.decode = function (text) {
-                return decodeURIComponent(text || '');
+            $scope.decode = function (inputStr) {
+                if (!inputStr) return "";
+                if (inputStr == "") return "";
+                try {
+                    var decompressed = LZString.decompressFromEncodedURIComponent(inputStr);
+                    if ((!decompressed || decompressed.length == 0) && inputStr.includes("%")) {
+                        return decodeURIComponent(inputStr);
+                    }
+                    return decompressed || inputStr;
+                } catch (error) {
+                    return decodeURIComponent(inputStr);
+                }
             };
 
             init();

@@ -58,6 +58,8 @@ require("../lib/angular-workers/dist/angular-workers");
 
 require("./route-errorhandler");
 
+require("../lib/lz-string");
+
 require("bahmni-commons-ng/dist/bahmni-util-commons");
 require("bahmni-commons-ng/dist/bahmni-auth-commons");
 require("bahmni-commons-ng/dist/bahmni-config-commons");

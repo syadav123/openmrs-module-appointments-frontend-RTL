@@ -204,8 +204,18 @@ angular.module('bahmni.appointments')
                 });
             };
 
-            $rootScope.decode = function (text) {
-                return decodeURIComponent(text || '');
+            $rootScope.decode = function (inputStr) {
+                if (!inputStr) return "";
+                if (inputStr == "") return "";
+                try {
+                    var decompressed = LZString.decompressFromEncodedURIComponent(inputStr);
+                    if ((!decompressed || decompressed.length == 0) && inputStr.includes("%")) {
+                        return decodeURIComponent(inputStr);
+                    }
+                    return decompressed || inputStr;
+                } catch (error) {
+                    return decodeURIComponent(inputStr);
+                }
             };
 
             return calendarViewPopUp;

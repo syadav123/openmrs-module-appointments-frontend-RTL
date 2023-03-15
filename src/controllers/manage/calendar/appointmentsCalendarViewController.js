@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.appointments')
-    .controller('AppointmentsCalendarViewController', ['$scope', '$state', '$translate', 'spinner', 'appointmentsService', 'appointmentsFilter', '$rootScope', '$interval', 'appService', 'appointmentCommonService',
-        function ($scope, $state, $translate, spinner, appointmentsService, appointmentsFilter, $rootScope, $interval, appService, appointmentCommonService) {
+    .controller('AppointmentsCalendarViewController', ['$scope', '$state', '$translate', 'spinner', 'appointmentsService', 'appointmentsFilter', '$rootScope', '$interval', 'appService', 'appointmentCommonService', 'LZString',
+        function ($scope, $state, $translate, spinner, appointmentsService, appointmentsFilter, $rootScope, $interval, appService, appointmentCommonService, LZString) {
             var autoRefreshIntervalInSeconds = parseInt(appService.getAppDescriptor().getConfigValue('autoRefreshIntervalInSeconds'));
             var enableAutoRefresh = !isNaN(autoRefreshIntervalInSeconds);
             var autoRefreshStatus = true;
@@ -257,8 +257,18 @@ angular.module('bahmni.appointments')
                 }
             });
 
-            $scope.decode = function (text) {
-                return decodeURIComponent(text || '');
+            $scope.decode = function (inputStr) {
+                if (!inputStr) return "";
+                if (inputStr == "") return "";
+                try {
+                    var decompressed = LZString.decompressFromEncodedURIComponent(inputStr);
+                    if ((!decompressed || decompressed.length == 0) && inputStr.includes("%")) {
+                        return decodeURIComponent(inputStr);
+                    }
+                    return decompressed || inputStr;
+                } catch (error) {
+                    return decodeURIComponent(inputStr);
+                }
             };
 
             return init();

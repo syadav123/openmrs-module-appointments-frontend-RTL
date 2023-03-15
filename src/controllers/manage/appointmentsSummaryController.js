@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('bahmni.appointments')
-    .controller('AppointmentsSummaryController', ['$scope', '$state', '$window', 'spinner', 'appointmentsService', 'appService',
-        function ($scope, $state, $window, spinner, appointmentsService, appService) {
+    .controller('AppointmentsSummaryController', ['$scope', '$state', '$window', 'spinner', 'appointmentsService', 'appService', 'LZString',
+        function ($scope, $state, $window, spinner, appointmentsService, appService, LZString) {
             var init = function () {
                 $scope.viewDate = $state.params.viewDate || moment().startOf('day').toDate();
                 var weekStartDay = appService.getAppDescriptor().getConfigValue('startOfWeek')
@@ -63,9 +63,19 @@ angular.module('bahmni.appointments')
                 return moment(date).format('D MMM, ddd');
             };
 
-            $scope.decode = function (text) {
-                return decodeURIComponent(text || '');
-            }
+            $scope.decode = function (inputStr) {
+                if (!inputStr) return "";
+                if (inputStr == "") return "";
+                try {
+                    var decompressed = LZString.decompressFromEncodedURIComponent(inputStr);
+                    if ((!decompressed || decompressed.length == 0) && inputStr.includes("%")) {
+                        return decodeURIComponent(inputStr);
+                    }
+                    return decompressed || inputStr;
+                } catch (error) {
+                    return decodeURIComponent(inputStr);
+                }
+            };
 
             return init();
         }]);

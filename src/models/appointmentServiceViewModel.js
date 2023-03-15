@@ -28,9 +28,19 @@ Bahmni.Appointments.AppointmentServiceViewModel = (function () {
         isSelected: false
     }];
 
-    var decode = function (text) {
-        return decodeURIComponent(text || '');
-    };
+    // var decode = function (inputStr) {
+    //     if (!inputStr) return "";
+    //     if (inputStr == "") return "";
+    //     try {
+    //         var decompressed = LZString.decompressFromEncodedURIComponent(inputStr);
+    //         if ((!decompressed || decompressed.length == 0) && inputStr.includes("%")) {
+    //             return decodeURIComponent(inputStr);
+    //         }
+    //         return decompressed || inputStr;
+    //     } catch (error) {
+    //         return decodeURIComponent(inputStr);
+    //     }
+    // };
 
     Service.createFromResponse = function (serviceDetails) {
         var getDateTime = function (time) {
@@ -60,9 +70,9 @@ Bahmni.Appointments.AppointmentServiceViewModel = (function () {
         };
 
         var service = new Service({
-            name: decode(serviceDetails.name),
+            name: serviceDetails.name,
             uuid: serviceDetails.uuid,
-            description: decode(serviceDetails.description),
+            description: serviceDetails.description,
             durationMins: serviceDetails.durationMins,
             maxAppointmentsLimit: serviceDetails.maxAppointmentsLimit,
             color: serviceDetails.color,

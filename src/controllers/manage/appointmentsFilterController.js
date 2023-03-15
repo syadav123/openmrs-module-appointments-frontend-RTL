@@ -294,7 +294,7 @@ angular.module('bahmni.appointments')
             }, true);
 
             var decode = function (text) {
-                return decodeURIComponent(text || '');
+                return appointmentsServiceService.decodeDecompress(text || '');
             }
 
             init();
