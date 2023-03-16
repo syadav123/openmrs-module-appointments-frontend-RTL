@@ -11,14 +11,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import {getAppointmentConflictDetails} from "./ConflictsUtil";
 import {sortBy} from "lodash";
+import {decodeDecompress} from "../../utils/StringCompressionUtil";
 
 const PatientDoubleBookingConflicts = props => {
 
     const doubleBookingConflictMessage = 'Current {currentAppointmentService} request conflicts with {existingAppointmentService} appointment on and';
 
     const getDoubleBookingAppointmentConflictMessage = conflict => {
-        const currentAppointmentService = decodeURIComponent(props.service.label);
-        const existingAppointmentService = decodeURIComponent(conflict.service.name);
+        const currentAppointmentService = decodeDecompress(props.service.label);
+        const existingAppointmentService = decodeDecompress(conflict.service.name);
       let formattedMessage = <FormattedMessage id="PATIENT_DOUBLE_BOOKING_CONFLICT_MESSAGE"
                                                defaultMessage={doubleBookingConflictMessage}
                                                values={{

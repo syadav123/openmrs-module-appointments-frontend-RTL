@@ -79,6 +79,7 @@ import {getErrorTranslations} from "../../utils/ErrorTranslationsUtil";
 import {AppContext} from "../AppContext/AppContext";
 import updateAppointmentStatusAndProviderResponse from "../../appointment-request/AppointmentRequest";
 import {sendSMS} from "../../api/smsService";
+import {decodeDecompress} from "../../utils/StringCompressionUtil";
 
 const EditAppointment = props => {
 
@@ -390,7 +391,7 @@ const EditAppointment = props => {
     const isValidEndDate = () => appointmentDetails.recurringEndDate || (appointmentDetails.occurrences && appointmentDetails.occurrences > 0);
 
     function decode(text) {
-        return decodeURIComponent(text || '');
+        return decodeDecompress(text || '');
     }
 
     function storePreviousAppointmentDatetime(date, startTime, endTime) {

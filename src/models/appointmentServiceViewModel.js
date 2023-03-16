@@ -28,20 +28,6 @@ Bahmni.Appointments.AppointmentServiceViewModel = (function () {
         isSelected: false
     }];
 
-    // var decode = function (inputStr) {
-    //     if (!inputStr) return "";
-    //     if (inputStr == "") return "";
-    //     try {
-    //         var decompressed = LZString.decompressFromEncodedURIComponent(inputStr);
-    //         if ((!decompressed || decompressed.length == 0) && inputStr.includes("%")) {
-    //             return decodeURIComponent(inputStr);
-    //         }
-    //         return decompressed || inputStr;
-    //     } catch (error) {
-    //         return decodeURIComponent(inputStr);
-    //     }
-    // };
-
     Service.createFromResponse = function (serviceDetails) {
         var getDateTime = function (time) {
             return time ? new Date("January 01, 1970 " + time) : undefined;

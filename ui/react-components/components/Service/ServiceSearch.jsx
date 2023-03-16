@@ -4,6 +4,7 @@ import Dropdown from "../Dropdown/Dropdown.jsx";
 import PropTypes from "prop-types";
 import {injectIntl} from "react-intl";
 import {forEach} from 'lodash';
+import {decodeDecompress} from "../../utils/StringCompressionUtil";
 
 const ServiceSearch = (props) => {
 
@@ -25,7 +26,7 @@ const ServiceSearch = (props) => {
         const services = [];
         const results = await getAllServices();
         forEach(results, function (service) {
-            service.name = decodeURIComponent(service.name);
+            service.name = decodeDecompress(service.name);
             services.push(service);
         });
         setServices(services);

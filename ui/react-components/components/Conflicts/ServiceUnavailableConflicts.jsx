@@ -5,6 +5,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {getAppointmentConflictDetails} from "./ConflictsUtil";
 import {sortBy} from "lodash";
+import {decodeDecompress} from "../../utils/StringCompressionUtil";
 
 const ServiceUnavailableConflicts = props => {
 
@@ -23,7 +24,7 @@ const ServiceUnavailableConflicts = props => {
     return (
         <div>
             <div className={classNames(conflictsHeading)}>
-                <FormattedMessage id="NO_SERVICE_CONFLICTS_DEFAULT_TEXT" defaultMessage={defaultMessage} values={{label: decodeURIComponent(props.service.label)}}/>
+                <FormattedMessage id="NO_SERVICE_CONFLICTS_DEFAULT_TEXT" defaultMessage={defaultMessage} values={{label: decodeDecompress(props.service.label)}}/>
             </div>
             <div className={classNames(conflictsList)}>
                 <ul>{getConflictsList()}</ul>

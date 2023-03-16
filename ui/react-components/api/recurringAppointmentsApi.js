@@ -1,5 +1,6 @@
 import axios from "axios";
 import {recurringAppointmentFetchUrl, recurringAppointmentsConflictsUrl, recurringAppointmentsSaveUrl} from "../config";
+import {decodeDecompress} from "../utils/StringCompressionUtil";
 
 export const saveRecurringAppointments = async data => {
     try {
@@ -24,7 +25,7 @@ export const updateRecurringAppointments = async data => {
 export const getRecurringAppointment = async (appointmentUuid) => {
     try {
         const response = await axios.get(`${recurringAppointmentFetchUrl}?uuid=${appointmentUuid}`);
-        response.data.comments = decodeURIComponent(response.data.comments);
+        response.data.comments = decodeDecompress(response.data.comments);
         return response;
     } catch (error) {
         console.error(error);
